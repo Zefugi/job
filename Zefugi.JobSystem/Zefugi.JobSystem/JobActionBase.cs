@@ -22,22 +22,48 @@ namespace Zefugi.JobSystem
         public void Assign(JobSystem system)
         {
             if (State != JobActionState.Unassigned)
-                throw new JobSystemException("Can't re-assign a job while it is assigned to a job system.");
+                throw new JobSystemException("Can not re-assign a job while it is assigned to a job system.");
 
             System = system;
             State = JobActionState.Assigned;
+
+            OnAssigned();
         }
 
-        public void Cancel() { }
+        public void Cancel()
+        {
+            if (State == JobActionState.Unassigned)
+                throw new JobSystemException("Can not cancel an action that is not assigned.");
 
-        public void Start() { }
+            System = null;
+            State = JobActionState.Unassigned;
 
-        public void Pause() { }
+            OnCancel();
+        }
 
-        public void Panic() { }
+        public void Start()
+        {
+            OnStart();
+        }
 
-        public void Resume() { }
+        public void Pause()
+        {
+            OnPause();
+        }
 
-        public void Update() { }
+        public void Panic()
+        {
+            OnPanic();
+        }
+
+        public void Resume()
+        {
+            OnResume();
+        }
+
+        public void Update()
+        {
+            OnUpdate();
+        }
     }
 }

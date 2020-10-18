@@ -45,8 +45,14 @@ namespace Zefugi.JobSystem.Tests
             Assert.AreEqual(_jobs, _action.System);
         }
 
-        [Test] // TODO
-        public void Cancel_SetsStateToCancelled() { }
+        [Test]
+        public void Cancel_SetsStateToUnassigned()
+        {
+            _action.Assign(_jobs);
+            _action.Cancel();
+
+            Assert.AreEqual(JobActionState.Unassigned, _action.State);
+        }
 
         [Test] // TODO
         public void Cancel_ThrowsIfNotAssigned() { }
