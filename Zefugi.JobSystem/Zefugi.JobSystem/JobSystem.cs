@@ -37,8 +37,20 @@ namespace Zefugi.JobSystem
 
         public void Start(JobActionBase action)
         {
+            if (_currentJob != null)
+                Pause();
+
             _currentJob = action;
             action.OnStart();
+        }
+
+        public void Pause()
+        {
+            if (_currentJob == null)
+                throw new JobSystemException("Can not pause while no job is active.");
+
+            _currentJob.OnPause();
+            _currentJob = null;
         }
     }
 }

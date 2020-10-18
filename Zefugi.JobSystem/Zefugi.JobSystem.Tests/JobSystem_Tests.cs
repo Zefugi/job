@@ -86,6 +86,9 @@ namespace Zefugi.JobSystem.Tests
         {
             _jobs.Assign(_action);
             _jobs.Start(_action);
+            _jobs.Start(_secondAction);
+
+            _action.Received().OnPause();
         }
         // TODO Start adds the new action and triggers OnAssign if it is not already added.
 
