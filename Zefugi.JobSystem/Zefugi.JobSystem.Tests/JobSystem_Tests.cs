@@ -32,11 +32,11 @@ namespace Zefugi.JobSystem.Tests
         }
         
         [Test]
-        public void Assign_TriggersOnAssigned()
+        public void Assign_TriggersAssigned()
         {
             _jobs.Assign(_action);
 
-            _action.Received().OnAssigned();
+            _action.Received().Assign(_jobs);
         }
 
         [Test]
@@ -50,12 +50,12 @@ namespace Zefugi.JobSystem.Tests
         }
 
         [Test]
-        public void Cancel_TriggersOnCancel()
+        public void Cancel_TriggersCancel()
         {
             _jobs.Assign(_action);
             _jobs.Cancel(_action);
 
-            _action.Received().OnCancel();
+            _action.Received().Cancel();
         }
 
         [Test] // TODO
@@ -73,12 +73,12 @@ namespace Zefugi.JobSystem.Tests
         }
 
         [Test]
-        public void Start_TriggersOnStart()
+        public void Start_TriggersStart()
         {
             _jobs.Assign(_action);
             _jobs.Start(_action);
 
-            _action.Received().OnStart();
+            _action.Received().Start();
             Assert.AreEqual(_action, _jobs.CurrentJob);
         }
 
@@ -89,16 +89,16 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
             _jobs.Start(_secondAction);
 
-            _action.Received().OnPause();
+            _action.Received().Pause();
         }
 
         [Test]
-        public void Start_AddsTheNewActionAndTriggersOnAssign_IfNotAlreadyAdded()
+        public void Start_AddsTheNewActionAndTriggersAssign_IfNotAlreadyAdded()
         {
             _jobs.Start(_action);
 
             Assert.IsTrue(_jobs.Jobs.Contains(_action));
-            _action.Received().OnAssigned();
+            _action.Received().Assign(_jobs);
         }
 
         [Test]
@@ -111,12 +111,12 @@ namespace Zefugi.JobSystem.Tests
         }
 
         [Test]
-        public void Pause_CallsOnPause()
+        public void Pause_CallsPause()
         {
             _jobs.Start(_action);
             _jobs.Pause();
 
-            _action.Received().OnPause();
+            _action.Received().Pause();
         }
 
         [Test]
@@ -135,12 +135,12 @@ namespace Zefugi.JobSystem.Tests
         }
 
         [Test]
-        public void Panic_TriggersOnPanic()
+        public void Panic_TriggersPanic()
         {
             _jobs.Start(_action);
             _jobs.Panic();
 
-            _action.Received().OnPanic();
+            _action.Received().Panic();
         }
 
         [Test]
@@ -149,9 +149,21 @@ namespace Zefugi.JobSystem.Tests
             Assert.Throws<JobSystemException>(_jobs.Panic);
         }
 
-        // TODO Resume pauses the current action and sets a new current.
-        // TODO Resume also triggers OnResume.
+        [Test]
+        public void Resume_PausesTheCurrentActionAndSetsTheNewCurrent()
+        {
+            _jobs.Start(_action);
+            _jobs.Pause();
+            _jobs.Start(_secondAction);
+            _jobs.Resume(_action);
 
-        // TODO Update triggers OnUpdate.
+            _secondAction.Received().Pause();
+            _action.Received().Resume();
+            Assert.AreEqual(_action, _jobs.CurrentJob);
+        }
+        // TODO Resume also triggers Resume.
+        // TODO Throws a JobSystemException if action is not paused.
+
+        // TODO Update triggers Update.
     }
 }

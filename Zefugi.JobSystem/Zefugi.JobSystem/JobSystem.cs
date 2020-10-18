@@ -17,9 +17,8 @@ namespace Zefugi.JobSystem
 
         public void Assign(JobActionBase action)
         {
-            action.System = this;
             _jobs.Add(action);
-            action.OnAssigned();
+            action.Assign(this);
         }
 
         public void Cancel(JobActionBase action)
@@ -27,8 +26,7 @@ namespace Zefugi.JobSystem
             if (!_jobs.Contains(action))
                 return;
 
-            action.OnCancel();
-            action.System = null;
+            action.Cancel();
             _jobs.Remove(action);
 
             if(_currentJob == action)
@@ -44,7 +42,7 @@ namespace Zefugi.JobSystem
                 Assign(action);
 
             _currentJob = action;
-            action.OnStart();
+            action.Start();
         }
 
         public void Pause()
@@ -52,7 +50,7 @@ namespace Zefugi.JobSystem
             if (_currentJob == null)
                 throw new JobSystemException("Can not pause while no job is active.");
 
-            _currentJob.OnPause();
+            _currentJob.Pause();
             _currentJob = null;
         }
 
@@ -61,8 +59,23 @@ namespace Zefugi.JobSystem
             if (_currentJob == null)
                 throw new JobSystemException("Can not panic while no job is active.");
 
-            _currentJob.OnPanic();
+            _currentJob.Panic();
             _currentJob = null;
+        }
+
+        public void Resume(JobActionBase action)
+        {
+            if (action.State != JobActionState.Paused)
+                throw new JobSystemException("Can not resume a job action that is not paused.");
+
+            if (!_jobs.Contains(action))
+                Assign(action);
+
+            if (_currentJob != null)
+                _currentJob.Pause();
+
+            _currentJob = action;
+            action.Resume();
         }
     }
 }

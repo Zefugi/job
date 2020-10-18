@@ -8,8 +8,8 @@ namespace Zefugi.JobSystem
 {
     public class JobActionBase
     {
-        public JobActionState State { get; internal set; } = JobActionState.Unassigned;
-        public JobSystem System { get; internal set; }
+        public JobActionState State { get; private set; } = JobActionState.Unassigned;
+        public JobSystem System { get; private set; }
 
         protected virtual void OnAssigned() { }
         protected virtual void OnCancel() { }
@@ -18,5 +18,23 @@ namespace Zefugi.JobSystem
         protected virtual void OnPanic() { }
         protected virtual void OnResume() { }
         protected virtual JobActionBase OnUpdate() { return null; }
+
+        public void Assign(JobSystem system)
+        {
+            System = system;
+            State = JobActionState.Assigned;
+        }
+
+        public void Cancel() { }
+
+        public void Start() { }
+
+        public void Pause() { }
+
+        public void Panic() { }
+
+        public void Resume() { }
+
+        public void Update() { }
     }
 }
