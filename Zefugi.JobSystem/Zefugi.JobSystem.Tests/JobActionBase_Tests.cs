@@ -87,8 +87,15 @@ namespace Zefugi.JobSystem.Tests
             Assert.Throws<JobSystemException>(() => { _action.Start(); });
         }
 
-        [Test] // TODO
-        public void Pause_SetsStateToPaused() { }
+        [Test]
+        public void Pause_SetsStateToPaused()
+        {
+            _action.Assign(_jobs);
+            _action.Start();
+            _action.Panic();
+
+            Assert.AreEqual(JobActionState.Paused, _action.State);
+        }
 
         [Test] // TODO
         public void Panic_SetsStateToPaused() { }

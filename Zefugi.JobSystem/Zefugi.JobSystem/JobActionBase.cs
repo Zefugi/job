@@ -55,6 +55,8 @@ namespace Zefugi.JobSystem
 
         public void Pause()
         {
+
+            State = JobActionState.Paused;
             OnPause();
         }
 
