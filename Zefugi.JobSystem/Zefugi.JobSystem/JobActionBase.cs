@@ -55,6 +55,8 @@ namespace Zefugi.JobSystem
 
         public void Pause()
         {
+            if (State != JobActionState.Active)
+                throw new JobSystemException("Can not pause an actions that is not active.");
 
             State = JobActionState.Paused;
             OnPause();
