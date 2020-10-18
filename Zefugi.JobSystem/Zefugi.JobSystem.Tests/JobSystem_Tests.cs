@@ -133,7 +133,6 @@ namespace Zefugi.JobSystem.Tests
 
             Assert.IsNull(_jobs.CurrentJob);
         }
-        // TODO Panic also triggers OnPanic.
 
         [Test]
         public void Panic_TriggersOnPanic()
@@ -143,7 +142,12 @@ namespace Zefugi.JobSystem.Tests
 
             _action.Received().OnPanic();
         }
-        // TODO Panic throws JobSystemException if no job is active.
+
+        [Test]
+        public void Panic_ThrowsJobSystemException_IfNoJobIsActive()
+        {
+            Assert.Throws<JobSystemException>(_jobs.Panic);
+        }
 
         // TODO Resume pauses the current action and sets a new current.
         // TODO Resume also triggers OnResume.
