@@ -64,6 +64,8 @@ namespace Zefugi.JobSystem
 
         public void Panic()
         {
+
+            State = JobActionState.Paused;
             OnPanic();
         }
 
