@@ -11,28 +11,43 @@ namespace Zefugi.JobSystem.Tests
     [TestFixture]
     public class JobSystem_Tests
     {
+        private JobSystem _jobs = new JobSystem();
+        private JobActionBase _action = new JobActionBase();
+
+        [TearDown]
+        public void TearDown()
+        {
+            _jobs = new JobSystem();
+            _action = new JobActionBase();
+        }
+
         [Test]
         public void Assign_MakesTheSpecifiedJobActionAvailableInJobs()
         {
-            var jobs = new JobSystem();
-            var action = new JobActionBase();
-            jobs.Assign(action);
+            _jobs.Assign(_action);
 
-            Assert.IsTrue(jobs.Jobs.Contains(action));
+            Assert.IsTrue(_jobs.Jobs.Contains(_action));
         }
         
         [Test]
         public void Assign_TriggersOnAssigned()
         {
-            var jobs = new JobSystem();
-            var action = Substitute.For<JobActionBase>();
-            jobs.Assign(action);
+            _jobs.Assign(_action);
 
-            action.Received().OnAssigned();
+            _action.Received().OnAssigned();
         }
 
-        // TODO Cancel removes the action from Jobs and CurrentJob
+        [Test]
+        public void Cancel_RemovesActionFromJobsAndCurrentJob()
+        {
+            _jobs.Assign(_action);
+            _jobs.Cancel(_action);
+
+            Assert.IsFalse(_jobs.Jobs.Contains(_action));
+            Assert.IsNull(_jobs.CurrentJob);
+        }
         // TODO Cancel also triggers OnCancel
+        // TODO Cancel clears CurrentJob only if current is the action being cancelled
 
         // TODO Start pauses the current action and makes the new action current.
         // TODO Start also triggers OnStart

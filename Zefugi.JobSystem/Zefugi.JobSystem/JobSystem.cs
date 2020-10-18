@@ -20,5 +20,18 @@ namespace Zefugi.JobSystem
             _jobs.Add(action);
             action.OnAssigned();
         }
+
+        public void Cancel(JobActionBase action)
+        {
+            if (!_jobs.Contains(action))
+                return;
+
+            action.OnCancel();
+            action.System = null;
+            _jobs.Remove(action);
+
+            if(_currentJob == action)
+                _currentJob = null;
+        }
     }
 }
