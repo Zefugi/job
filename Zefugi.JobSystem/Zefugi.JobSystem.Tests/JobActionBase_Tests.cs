@@ -37,8 +37,13 @@ namespace Zefugi.JobSystem.Tests
             Assert.Throws<JobSystemException>(() => { _action.Assign(_jobs); });
         }
 
-        [Test] // TODO
-        public void Assign_SetsSystem() { }
+        [Test]
+        public void Assign_SetsSystem()
+        {
+            _action.Assign(_jobs);
+
+            Assert.AreEqual(_jobs, _action.System);
+        }
 
         [Test] // TODO
         public void Cancel_SetsStateToCancelled() { }
