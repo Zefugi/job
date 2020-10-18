@@ -26,7 +26,6 @@ namespace Zefugi.JobSystem
 
             System = system;
             State = JobActionState.Assigned;
-
             OnAssigned();
         }
 
@@ -37,7 +36,6 @@ namespace Zefugi.JobSystem
 
             System = null;
             State = JobActionState.Unassigned;
-
             OnCancel();
         }
 
@@ -49,7 +47,6 @@ namespace Zefugi.JobSystem
                 throw new JobSystemException("Can not start an action that is already active or paused.");
 
             State = JobActionState.Active;
-
             OnStart();
         }
 
@@ -64,6 +61,8 @@ namespace Zefugi.JobSystem
 
         public void Panic()
         {
+            if (State != JobActionState.Active)
+                throw new JobSystemException("Can not panic an action that is not active.");
 
             State = JobActionState.Paused;
             OnPanic();
