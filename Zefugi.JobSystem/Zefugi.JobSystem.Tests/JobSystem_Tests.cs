@@ -79,7 +79,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
 
             _action.Received().OnStart();
-            // TODO Check if CurrentJob is set.
+            Assert.AreEqual(_action, _jobs.CurrentJob);
         }
 
         [Test]
