@@ -70,6 +70,9 @@ namespace Zefugi.JobSystem
 
         public void Resume()
         {
+            if (State != JobActionState.Paused)
+                throw new JobSystemException("Can not resume an action that is not paused.");
+
             State = JobActionState.Active;
             OnResume();
         }
