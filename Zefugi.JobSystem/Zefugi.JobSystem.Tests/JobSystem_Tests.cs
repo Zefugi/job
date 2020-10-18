@@ -11,14 +11,16 @@ namespace Zefugi.JobSystem.Tests
     [TestFixture]
     public class JobSystem_Tests
     {
-        private JobSystem _jobs = new JobSystem();
-        private JobActionBase _action = new JobActionBase();
+        private JobSystem _jobs;
+        private JobActionBase _action;
+        private JobActionBase _secondAction;
 
-        [TearDown]
-        public void TearDown()
+        [SetUp]
+        public void SetUp()
         {
             _jobs = new JobSystem();
             _action = Substitute.For<JobActionBase>();
+            _secondAction = Substitute.For<JobActionBase>();
         }
 
         [Test]
@@ -69,9 +71,23 @@ namespace Zefugi.JobSystem.Tests
 
             Assert.AreEqual(_action, _jobs.CurrentJob);
         }
-        // TODO Start also triggers OnStart
-        // TODO Start pauses the current action.
-        // TODO Start adds the new action if it is not already added.
+
+        [Test]
+        public void Start_TriggersOnStart()
+        {
+            _jobs.Assign(_action);
+            _jobs.Start(_action);
+
+            _action.Received().OnStart();
+        }
+
+        [Test]
+        public void Start_PausesTheCurrentTask()
+        {
+            _jobs.Assign(_action);
+            _jobs.Start(_action);
+        }
+        // TODO Start adds the new action and triggers OnAssign if it is not already added.
 
         // TODO Pause clears the current action.
         // TODO Pause also triggers OnPause
