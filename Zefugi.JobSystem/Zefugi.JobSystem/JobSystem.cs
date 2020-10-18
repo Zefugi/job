@@ -55,5 +55,14 @@ namespace Zefugi.JobSystem
             _currentJob.OnPause();
             _currentJob = null;
         }
+
+        public void Panic()
+        {
+            if (_currentJob == null)
+                throw new JobSystemException("Can not panic while no job is active.");
+
+            _currentJob.OnPanic();
+            _currentJob = null;
+        }
     }
 }
