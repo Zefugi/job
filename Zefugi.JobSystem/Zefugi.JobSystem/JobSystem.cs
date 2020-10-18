@@ -40,6 +40,9 @@ namespace Zefugi.JobSystem
             if (_currentJob != null)
                 Pause();
 
+            if (!_jobs.Contains(action))
+                Assign(action);
+
             _currentJob = action;
             action.OnStart();
         }

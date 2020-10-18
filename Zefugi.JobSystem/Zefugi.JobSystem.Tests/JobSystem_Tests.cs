@@ -79,6 +79,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
 
             _action.Received().OnStart();
+            // TODO Check if CurrentJob is set.
         }
 
         [Test]
@@ -90,7 +91,15 @@ namespace Zefugi.JobSystem.Tests
 
             _action.Received().OnPause();
         }
-        // TODO Start adds the new action and triggers OnAssign if it is not already added.
+
+        [Test]
+        public void Start_AddsTheNewActionAndTriggersOnAssign_IfNotAlreadyAdded()
+        {
+            _jobs.Start(_action);
+
+            Assert.IsTrue(_jobs.Jobs.Contains(_action));
+            _action.Received().OnAssigned();
+        }
 
         // TODO Pause clears the current action.
         // TODO Pause also triggers OnPause
