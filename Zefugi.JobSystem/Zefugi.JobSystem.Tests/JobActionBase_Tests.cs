@@ -29,11 +29,13 @@ namespace Zefugi.JobSystem.Tests
             Assert.AreEqual(JobActionState.Assigned, _action.State);
         }
 
-        [Test] // TODO
-        public void Assign_CallsOnAssigned() { }
+        [Test]
+        public void Assign_ThrowsIfAlreadyAssigned()
+        {
+            _action.Assign(_jobs);
 
-        [Test] // TODO
-        public void Assign_ThrowsIfAlreadyAssigned() { }
+            Assert.Throws<JobSystemException>(() => { _action.Assign(_jobs); });
+        }
 
         [Test] // TODO
         public void Assign_SetsSystem() { }
