@@ -18,7 +18,7 @@ namespace Zefugi.JobSystem.Tests
         public void TearDown()
         {
             _jobs = new JobSystem();
-            _action = new JobActionBase();
+            _action = Substitute.For<JobActionBase>();
         }
 
         [Test]
@@ -46,7 +46,15 @@ namespace Zefugi.JobSystem.Tests
             Assert.IsFalse(_jobs.Jobs.Contains(_action));
             Assert.IsNull(_jobs.CurrentJob);
         }
-        // TODO Cancel also triggers OnCancel
+
+        [Test]
+        public void Cancel_TriggersOnCancel()
+        {
+            _jobs.Assign(_action);
+            _jobs.Cancel(_action);
+
+            _action.Received().OnCancel();
+        }
         // TODO Cancel clears CurrentJob only if current is the action being cancelled
 
         // TODO Start pauses the current action and makes the new action current.
