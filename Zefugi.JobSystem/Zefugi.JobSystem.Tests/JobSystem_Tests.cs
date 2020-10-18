@@ -55,7 +55,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Assign(_action);
             _jobs.Cancel(_action);
 
-            _action.Received().Cancel();
+            Assert.IsNull(_action.System);
         }
 
         [Test] // TODO
