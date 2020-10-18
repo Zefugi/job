@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="JobActionBase.cs" />
     <Compile Include="JobSystem.cs" />
+    <Compile Include="JobSystemException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
