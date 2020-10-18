@@ -116,7 +116,8 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
             _jobs.Pause();
 
-            _action.Received().Pause();
+            Assert.AreEqual(JobActionState.Paused, _action.State);
+            Assert.IsNull(_jobs.ActiveJob);
         }
 
         [Test]
