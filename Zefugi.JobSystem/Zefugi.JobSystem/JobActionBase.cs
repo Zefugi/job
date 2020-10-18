@@ -8,12 +8,14 @@ namespace Zefugi.JobSystem
 {
     public class JobActionBase
     {
-        protected virtual void OnAssigned() { }
-        protected virtual void OnCancel() { }
-        protected virtual void OnStart() { }
-        protected virtual void OnPause() { }
-        protected virtual void OnPanic() { }
-        protected virtual void OnResume() { }
-        protected virtual JobActionBase OnUpdate() { return null; }
+        public JobSystem System { get; internal set; }
+
+        public virtual void OnAssigned() { }
+        public virtual void OnCancel() { }
+        public virtual void OnStart() { }
+        public virtual void OnPause() { }
+        public virtual void OnPanic() { }
+        public virtual void OnResume() { }
+        public virtual JobActionBase OnUpdate() { return null; }
     }
 }
