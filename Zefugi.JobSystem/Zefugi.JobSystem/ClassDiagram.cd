@@ -3,7 +3,7 @@
   <Class Name="Zefugi.JobSystem.JobSystem">
     <Position X="2.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAACAAAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgABQASCAAAAAAAEAAAAgAAAACAAAAAAAAAAgAAAA=</HashCode>
       <FileName>JobSystem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -16,9 +16,16 @@
   <Class Name="Zefugi.JobSystem.JobActionBase">
     <Position X="5.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgEAACAAAAAAAAgAEAAAAAAAAAAAAAAAAAAAABEAAAA=</HashCode>
+      <HashCode>AgEAACAAAIAAAAgAEAAAAAAAAAAAAAAAAAAABBEAAAA=</HashCode>
       <FileName>JobActionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Enum Name="Zefugi.JobSystem.JobActionState" Collapsed="true">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAIAAAAAAAAAAAAAQAAgAAAAAAAAAgA=</HashCode>
+      <FileName>JobActionState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
