@@ -78,7 +78,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Assign(_action);
             _jobs.Start(_action);
 
-            _action.Received().Start();
+            Assert.AreEqual(JobActionState.Active, _action.State);
             Assert.AreEqual(_action, _jobs.ActiveJob);
         }
 
