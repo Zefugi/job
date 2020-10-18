@@ -159,8 +159,8 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_secondAction);
             _jobs.Resume(_action);
 
-            _secondAction.Received().Pause();
-            _action.Received().Resume();
+            Assert.AreEqual(JobActionState.Paused, _secondAction.State);
+            Assert.AreEqual(JobActionState.Active, _action.State);
             Assert.AreEqual(_action, _jobs.ActiveJob);
         }
         // TODO Resume also triggers Resume.
