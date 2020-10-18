@@ -60,8 +60,14 @@ namespace Zefugi.JobSystem.Tests
             Assert.Throws<JobSystemException>(() => { _action.Cancel(); });
         }
 
-        [Test] // TODO
-        public void Cancel_SetsSystemToNull() { }
+        [Test]
+        public void Cancel_SetsSystemToNull()
+        {
+            _action.Assign(_jobs);
+            _action.Cancel();
+
+            Assert.IsNull(_action.System);
+        }
 
         [Test] // TODO
         public void Start_SetsStateToActive() { }
