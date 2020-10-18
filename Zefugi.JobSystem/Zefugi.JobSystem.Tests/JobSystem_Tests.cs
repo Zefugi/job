@@ -46,7 +46,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Cancel(_action);
 
             Assert.IsFalse(_jobs.Jobs.Contains(_action));
-            Assert.IsNull(_jobs.CurrentJob);
+            Assert.IsNull(_jobs.ActiveJob);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Assign(_action);
             _jobs.Start(_action);
 
-            Assert.AreEqual(_action, _jobs.CurrentJob);
+            Assert.AreEqual(_action, _jobs.ActiveJob);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
 
             _action.Received().Start();
-            Assert.AreEqual(_action, _jobs.CurrentJob);
+            Assert.AreEqual(_action, _jobs.ActiveJob);
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
             _jobs.Pause();
 
-            Assert.IsNull(_jobs.CurrentJob);
+            Assert.IsNull(_jobs.ActiveJob);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
             _jobs.Panic();
 
-            Assert.IsNull(_jobs.CurrentJob);
+            Assert.IsNull(_jobs.ActiveJob);
         }
 
         [Test]
@@ -140,7 +140,8 @@ namespace Zefugi.JobSystem.Tests
             _jobs.Start(_action);
             _jobs.Panic();
 
-            _action.Received().Panic();
+            Assert.AreEqual(JobActionState.Paused, _action.State);
+            Assert.IsNull(_jobs.ActiveJob);
         }
 
         [Test]
@@ -159,7 +160,7 @@ namespace Zefugi.JobSystem.Tests
 
             _secondAction.Received().Pause();
             _action.Received().Resume();
-            Assert.AreEqual(_action, _jobs.CurrentJob);
+            Assert.AreEqual(_action, _jobs.ActiveJob);
         }
         // TODO Resume also triggers Resume.
         // TODO Throws a JobSystemException if action is not paused.

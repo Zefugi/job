@@ -10,10 +10,10 @@ namespace Zefugi.JobSystem
     public class JobSystem
     {
         private List<JobActionBase> _jobs = new List<JobActionBase>();
-        private JobActionBase _currentJob;
+        private JobActionBase _activeJob;
 
         public IReadOnlyList<JobActionBase> Jobs => _jobs.AsReadOnly();
-        public JobActionBase CurrentJob => _currentJob;
+        public JobActionBase ActiveJob => _activeJob;
 
         public void Assign(JobActionBase action)
         {
@@ -29,38 +29,38 @@ namespace Zefugi.JobSystem
             action.Cancel();
             _jobs.Remove(action);
 
-            if(_currentJob == action)
-                _currentJob = null;
+            if(_activeJob == action)
+                _activeJob = null;
         }
 
         public void Start(JobActionBase action)
         {
-            if (_currentJob != null)
+            if (_activeJob != null)
                 Pause();
 
             if (!_jobs.Contains(action))
                 Assign(action);
 
-            _currentJob = action;
+            _activeJob = action;
             action.Start();
         }
 
         public void Pause()
         {
-            if (_currentJob == null)
+            if (_activeJob == null)
                 throw new JobSystemException("Can not pause while no job is active.");
 
-            _currentJob.Pause();
-            _currentJob = null;
+            _activeJob.Pause();
+            _activeJob = null;
         }
 
         public void Panic()
         {
-            if (_currentJob == null)
+            if (_activeJob == null)
                 throw new JobSystemException("Can not panic while no job is active.");
 
-            _currentJob.Panic();
-            _currentJob = null;
+            _activeJob.Panic();
+            _activeJob = null;
         }
 
         public void Resume(JobActionBase action)
@@ -71,10 +71,10 @@ namespace Zefugi.JobSystem
             if (!_jobs.Contains(action))
                 Assign(action);
 
-            if (_currentJob != null)
-                _currentJob.Pause();
+            if (_activeJob != null)
+                _activeJob.Pause();
 
-            _currentJob = action;
+            _activeJob = action;
             action.Resume();
         }
     }
