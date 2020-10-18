@@ -109,7 +109,15 @@ namespace Zefugi.JobSystem.Tests
 
             Assert.IsNull(_jobs.CurrentJob);
         }
-        // TODO Pause also triggers OnPause
+
+        [Test]
+        public void Pause_CallsOnPause()
+        {
+            _jobs.Start(_action);
+            _jobs.Pause();
+
+            _action.Received().OnPause();
+        }
         // TODO Pause thrown a JobSystemException if no job is active.
 
         // TODO Panic clears the current action.
