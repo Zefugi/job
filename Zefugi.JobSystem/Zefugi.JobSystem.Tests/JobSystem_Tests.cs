@@ -32,11 +32,11 @@ namespace Zefugi.JobSystem.Tests
         }
         
         [Test]
-        public void Assign_TriggersAssigned()
+        public void Assign_TriggersAssign()
         {
             _jobs.Assign(_action);
 
-            _action.Received().Assign(_jobs);
+            Assert.AreEqual(_jobs, _action.System);
         }
 
         [Test]
