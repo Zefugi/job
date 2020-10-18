@@ -72,6 +72,7 @@ namespace Zefugi.JobSystem.Tests
         [Test]
         public void Start_SetsStateToActive()
         {
+            _action.Assign(_jobs);
             _action.Start();
 
             Assert.AreEqual(JobActionState.Active, _action.State);
@@ -80,7 +81,10 @@ namespace Zefugi.JobSystem.Tests
         [Test]
         public void Start_ThrowsIfNotAssignedOrAlredyActive()
         {
-
+            Assert.Throws<JobSystemException>(() => { _action.Start(); });
+            _action.Assign(_jobs);
+            _action.Start();
+            Assert.Throws<JobSystemException>(() => { _action.Start(); });
         }
 
         [Test] // TODO

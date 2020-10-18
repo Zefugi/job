@@ -43,6 +43,11 @@ namespace Zefugi.JobSystem
 
         public void Start()
         {
+            if (State == JobActionState.Unassigned)
+                throw new JobSystemException("Can not start an action that has not been assigned to a job system.");
+            if (State != JobActionState.Assigned)
+                throw new JobSystemException("Can not start an action that is already active or paused.");
+
             State = JobActionState.Active;
 
             OnStart();
