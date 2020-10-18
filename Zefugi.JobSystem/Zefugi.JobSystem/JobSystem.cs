@@ -33,5 +33,10 @@ namespace Zefugi.JobSystem
             if(_currentJob == action)
                 _currentJob = null;
         }
+
+        public void Start(JobActionBase action)
+        {
+            _currentJob = action;
+        }
     }
 }

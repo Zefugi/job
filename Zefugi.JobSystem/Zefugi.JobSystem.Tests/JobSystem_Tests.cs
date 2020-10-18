@@ -55,10 +55,23 @@ namespace Zefugi.JobSystem.Tests
 
             _action.Received().OnCancel();
         }
-        // TODO Cancel clears CurrentJob only if current is the action being cancelled
 
-        // TODO Start pauses the current action and makes the new action current.
+        [Test] // TODO
+        public void Cancel_ClearsCurrentJob_OnlyIfCurrentIsThisAction()
+        {
+        }
+
+        [Test]
+        public void Start_MakesNewActionCurrent()
+        {
+            _jobs.Assign(_action);
+            _jobs.Start(_action);
+
+            Assert.AreEqual(_action, _jobs.CurrentJob);
+        }
         // TODO Start also triggers OnStart
+        // TODO Start pauses the current action.
+        // TODO Start adds the new action if it is not already added.
 
         // TODO Pause clears the current action.
         // TODO Pause also triggers OnPause
