@@ -77,9 +77,6 @@ namespace Zefugi.JobSystem
             OnResume();
         }
 
-        public void Update()
-        {
-            OnUpdate();
-        }
+        public JobActionBase Update() => OnUpdate();
     }
 }
