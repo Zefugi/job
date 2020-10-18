@@ -43,6 +43,8 @@ namespace Zefugi.JobSystem
 
         public void Start()
         {
+            State = JobActionState.Active;
+
             OnStart();
         }
 

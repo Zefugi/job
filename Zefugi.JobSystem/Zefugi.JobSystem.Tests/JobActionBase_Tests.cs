@@ -69,8 +69,19 @@ namespace Zefugi.JobSystem.Tests
             Assert.IsNull(_action.System);
         }
 
-        [Test] // TODO
-        public void Start_SetsStateToActive() { }
+        [Test]
+        public void Start_SetsStateToActive()
+        {
+            _action.Start();
+
+            Assert.AreEqual(JobActionState.Active, _action.State);
+        }
+
+        [Test]
+        public void Start_ThrowsIfNotAssignedOrAlredyActive()
+        {
+
+        }
 
         [Test] // TODO
         public void Pause_SetsStateToPaused() { }
