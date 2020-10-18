@@ -70,6 +70,7 @@ namespace Zefugi.JobSystem
 
         public void Resume()
         {
+            State = JobActionState.Active;
             OnResume();
         }
 
