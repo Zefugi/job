@@ -101,8 +101,16 @@ namespace Zefugi.JobSystem.Tests
             _action.Received().OnAssigned();
         }
 
-        // TODO Pause clears the current action.
+        [Test]
+        public void Pause_ClearTheCurrentAction()
+        {
+            _jobs.Start(_action);
+            _jobs.Pause();
+
+            Assert.IsNull(_jobs.CurrentJob);
+        }
         // TODO Pause also triggers OnPause
+        // TODO Pause thrown a JobSystemException if no job is active.
 
         // TODO Panic clears the current action.
         // TODO Panic also triggers OnPanic.
