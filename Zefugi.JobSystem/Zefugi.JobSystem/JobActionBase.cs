@@ -8,6 +8,7 @@ namespace Zefugi.JobSystem
 {
     public class JobActionBase
     {
+        public JobActionState State { get; internal set; } = JobActionState.Unassigned;
         public JobSystem System { get; internal set; }
 
         public virtual void OnAssigned() { }
