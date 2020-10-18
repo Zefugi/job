@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zefugi.JobSystem", "Zefugi.JobSystem\Zefugi.JobSystem.csproj", "{2AB6860E-FD4F-439B-86DA-85004C038684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zefugi.JobSystem.Tests", "Zefugi.JobSystem.Tests\Zefugi.JobSystem.Tests.csproj", "{183F6753-BCF9-4344-A4FE-98891E2ACF9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AB6860E-FD4F-439B-86DA-85004C038684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB6860E-FD4F-439B-86DA-85004C038684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB6860E-FD4F-439B-86DA-85004C038684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB6860E-FD4F-439B-86DA-85004C038684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{183F6753-BCF9-4344-A4FE-98891E2ACF9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{183F6753-BCF9-4344-A4FE-98891E2ACF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{183F6753-BCF9-4344-A4FE-98891E2ACF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{183F6753-BCF9-4344-A4FE-98891E2ACF9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F80DB504-44C2-48EA-821F-98C28981BB69}
+	EndGlobalSection
+EndGlobal
