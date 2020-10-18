@@ -16,7 +16,9 @@ namespace Zefugi.JobSystem
 
         public void Assign(JobActionBase action)
         {
+            action.System = this;
             _jobs.Add(action);
+            action.OnAssigned();
         }
     }
 }

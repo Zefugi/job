@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,16 @@ namespace Zefugi.JobSystem.Tests
 
             Assert.IsTrue(jobs.Jobs.Contains(action));
         }
-        // TODO Assign also triggers OnAssigned
+        
+        [Test]
+        public void Assign_TriggersOnAssigned()
+        {
+            var jobs = new JobSystem();
+            var action = Substitute.For<JobActionBase>();
+            jobs.Assign(action);
+
+            action.Received().OnAssigned();
+        }
 
         // TODO Cancel removes the action from Jobs and CurrentJob
         // TODO Cancel also triggers OnCancel
